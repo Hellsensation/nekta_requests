@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, reverse, redirect
-from .models import UserRequest
-from .forms import RequestForm
+from .models import UserRequest, RequestMessage
+from .forms import RequestForm, MessageForm
 
 
 def main_page(request: HttpRequest):
@@ -52,7 +52,17 @@ def create_request2(request):
 
 
 def add_message(request: HttpRequest) -> HttpResponse:
+    if request.method == 'POST':
+        message_data = MessageForm(request.POST)
+        if message_data.is_valid():
+            message_data.save()
+            url = reverse('SomeRequests:requests')
+            return redirect(url)
+    else:
+        message_data = MessageForm()
+    req = UserRequest.objects.all()
     context = {
-
-    }
+        'message_data': message_data,
+        'request': req,
+        }
     return render(request, 'SomeRequests/add_message.html', context=context)

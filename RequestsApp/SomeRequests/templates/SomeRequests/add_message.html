@@ -5,5 +5,19 @@
 {% endblock title %}
 
 {% block body %}
-    <h1>Adding message in request</h1>
+    <h1>Add message:</h1>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{message_data.as_p}}
+            {{request}}
+            <button type="submit">
+                Submit
+            </button>
+        </p>
+        <a href="{% url 'SomeRequests:main_page' %}">
+            Return to main page
+        </a>
+        </form>
+    </div>
 {% endblock body %}
