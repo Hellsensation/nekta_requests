@@ -1,0 +1,31 @@
+{% extends "SomeRequests/base.html" %}
+
+{% block title %}
+    Create request
+{% endblock title %}
+
+{% block body %}
+    <h1>Creating request:</h1>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            <p>
+                <label for="request-id">Request title:</label>
+                <input name="request_title" id="request-id" type="text" maxlength=100>
+            </p>
+            <p>
+                <label for="description-id">Description:</label>
+                <textarea name="request_description" id="description-id" cols="30" rows="10"></textarea>
+            </p>
+            <button type="submit">
+                Submit
+            </button>
+            <p>
+                <a href="{% url 'SomeRequests:main_page' %}">
+                    Back to main page
+                </a>
+            </p>
+        </form>
+    </div>
+
+{% endblock body %}

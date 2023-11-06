@@ -1,0 +1,24 @@
+{% extends "SomeRequests/base.html" %}
+
+{% block title %}
+    Requests list:
+{% endblock title %}
+
+{% block body %}
+    <h1>Requests list: </h1>
+    {% if request %}
+    {% for request in requests %}
+        <p>Request title: {{request.title}}</p>
+        <p>Request description: {{request.description}}</p>
+    {% endfor %}
+    {% else %}
+        No requests yet
+    {% endif %}
+    <p>
+        <a href="{% url 'SomeRequests:main_page' %}">
+            Return to main page
+        </a>
+    </p>
+
+{% endblock body %}
+

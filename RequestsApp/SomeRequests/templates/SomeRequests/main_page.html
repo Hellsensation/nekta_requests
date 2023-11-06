@@ -1,0 +1,29 @@
+{% extends 'SomeRequests/base.html' %}
+{% block title %}
+    Main page
+{% endblock title %}
+
+{% block body %}
+    <h1>Main Page</h1>
+    <h2>Categories:</h2>
+
+    <div>
+        <p>
+            <a href="{% url 'SomeRequests:requests' %}">
+                Requests 
+            </a>
+        </p>
+        <p>
+            <a href="{% url 'SomeRequests:create_request' %}">
+                Adding request
+            </a>
+        </p>
+        <p>
+            <a href="{% url 'SomeRequests:create_request2' %}">
+                Adding request 2 (testing)
+            </a>
+        </p>
+
+    </div>
+
+{% endblock body %}
