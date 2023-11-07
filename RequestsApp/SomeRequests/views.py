@@ -60,9 +60,10 @@ def add_message(request: HttpRequest) -> HttpResponse:
             return redirect(url)
     else:
         message_data = MessageForm()
-    req = UserRequest.objects.all()
+
+    requests = UserRequest.objects.all()
     context = {
         'message_data': message_data,
-        'request': req,
+        'requests': requests,
         }
     return render(request, 'SomeRequests/add_message.html', context=context)

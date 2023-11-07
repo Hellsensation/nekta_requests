@@ -8,6 +8,9 @@ class UserRequest(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
 
+    def __str__(self):
+        return self.title
+
 
 class RequestMessage(models.Model):
     text_message = models.TextField(blank=True, null=False)

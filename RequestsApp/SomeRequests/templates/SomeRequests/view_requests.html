@@ -10,6 +10,9 @@
     {% for request in requests %}
         <p>Request title: {{request.title}}</p>
         <p>Request description: {{request.description}}</p>
+        <p>Request time: {{request.created_at}}</p>
+        <p>Request author: {{request.user.username}}</p>
+        <p>---------------------------------------------</p>
     {% endfor %}
     {% else %}
         No requests yet
