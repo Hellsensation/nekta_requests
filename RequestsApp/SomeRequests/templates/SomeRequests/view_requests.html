@@ -6,6 +6,13 @@
 
 {% block body %}
     <h1>Requests list: </h1>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
     {% if request %}
     {% for request in requests %}
         <p>Request ID: {{request.pk}}</p>

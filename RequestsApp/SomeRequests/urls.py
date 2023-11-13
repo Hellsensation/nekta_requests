@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (main_page,
-                    view_requests,
+                    RequestsView,
                     create_request,
                     add_message,
                     get_request_data,
@@ -13,7 +13,7 @@ app_name = 'SomeRequests'
 
 urlpatterns = [
     path('main_page/', main_page, name='main_page'),
-    path('requests/', view_requests, name='requests'),
+    path('requests/', RequestsView.as_view(), name='requests'),
     path('add_message/', add_message, name='add_message'),
     path('create_request/', create_request, name='create_request'),
     path('get_request_data/', get_request_data, name='get_request_data'),

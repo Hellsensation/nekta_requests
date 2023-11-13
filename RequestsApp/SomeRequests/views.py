@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, reverse, redirect, get_object_or_404, get_list_or_404
+from django.views import View
+
 from .models import UserRequest, RequestMessage
 from .forms import RequestForm, MessageForm
 
@@ -10,12 +12,24 @@ def main_page(request: HttpRequest) -> HttpResponse:
     return render(request, 'SomeRequests/main_page.html')
 
 
-def view_requests(request: HttpRequest) -> HttpResponse:
+class RequestsView(View):
     """Представление списка заявок"""
-    context = {
-        'requests': UserRequest.objects.all()
-    }
-    return render(request, 'SomeRequests/view_requests.html', context=context)
+    def get(self, request: HttpRequest) -> HttpResponse:
+        context = {
+            'form': RequestForm(),
+            'requests': UserRequest.objects.all()
+        }
+        return render(request, 'SomeRequests/view_requests.html', context=context)
+
+    def post(self, request: HttpRequest) -> HttpResponse:
+        request_data = RequestForm(request.POST)
+        if request_data.is_valid():
+            request_data.save()
+            url = reverse('SomeRequests:requests')
+            return redirect(url)
+
+
+
 
 
 def create_request(request: HttpRequest) -> HttpResponse:
@@ -37,6 +51,10 @@ def create_request(request: HttpRequest) -> HttpResponse:
     }
 
     return render(request, 'SomeRequests/create_request.html', context=context)
+
+
+
+
 
 
 def add_message(request: HttpRequest) -> HttpResponse:
