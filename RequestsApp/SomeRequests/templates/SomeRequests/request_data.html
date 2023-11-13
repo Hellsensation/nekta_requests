@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+      {% block title %}
+        Request data
+      {% endblock %}
+    </title>
+</head>
+<body>
+      {% block body %}
+        <h1>Детали заявки</h1>
+        <p>Номер заявки: {{ request_data.id }}</p>
+        <p>Заголовок: {{ request_data.title }}</p>
+        <p>Описание: {{ request_data.description }}</p>
+        <p>Создана: {{ request_data.created_at }}</p>
+        <p>Кол-во сообщений: {{ request_messages }}</p>
+
+      {% endblock %}
+</body>
+</html>

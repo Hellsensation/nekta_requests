@@ -1,22 +1,24 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import render, reverse, redirect, get_object_or_404, get_list_or_404
 from .models import UserRequest, RequestMessage
 from .forms import RequestForm, MessageForm
 
 
-def main_page(request: HttpRequest):
+def main_page(request: HttpRequest) -> HttpResponse:
+    """Представление главной страницы"""
     return render(request, 'SomeRequests/main_page.html')
 
 
-def view_requests(request: HttpRequest):
+def view_requests(request: HttpRequest) -> HttpResponse:
+    """Представление списка заявок"""
     context = {
         'requests': UserRequest.objects.all()
     }
     return render(request, 'SomeRequests/view_requests.html', context=context)
 
 
-def create_request(request: HttpRequest):
+def create_request(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         user = User.objects.get(username='admin')
         req = UserRequest()
@@ -67,3 +69,21 @@ def add_message(request: HttpRequest) -> HttpResponse:
         'requests': requests,
         }
     return render(request, 'SomeRequests/add_message.html', context=context)
+
+
+def get_request_data(request: HttpRequest) -> HttpResponse:
+    return render(request, 'SomeRequests/get_request_data.html')
+
+
+def request_data(request):
+    request_id = request.GET.get('id')
+    if request_id:
+        request_data = get_object_or_404(UserRequest, pk=request_id)
+        messages = get_list_or_404(RequestMessage, user_request= request_id)
+        message_count = len(messages)
+        context = {
+            'request_data': request_data,
+            'request_messages': message_count
+        }
+        return render(request, 'SomeRequests/request_data.html', context=context)
+    return HttpResponse("Nothing in input")
