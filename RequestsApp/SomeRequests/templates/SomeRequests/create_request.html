@@ -9,22 +9,15 @@
     <div>
         <form method="post">
             {% csrf_token %}
-            <p>
-                <label for="request-id">Request title:</label>
-                <input name="request_title" id="request-id" type="text" maxlength=100>
-            </p>
-            <p>
-                <label for="description-id">Description:</label>
-                <textarea name="request_description" id="description-id" cols="30" rows="10"></textarea>
-            </p>
+            {{request_data.as_p}}
+            {{user.username}}
             <button type="submit">
                 Submit
             </button>
-            <p>
-                <a href="{% url 'SomeRequests:main_page' %}">
-                    Back to main page
-                </a>
-            </p>
+        </p>
+        <a href="{% url 'SomeRequests:main_page' %}">
+            Return to main page
+        </a>
         </form>
     </div>
 

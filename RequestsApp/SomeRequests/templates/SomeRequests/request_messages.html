@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+      {% block title %}
+        Messgaes
+      {% endblock %}
+    </title>
+</head>
+<body>
+      {% block body %}
+        <h1>Messages</h1>
+        {% if messages %}
+        {% for msg in messages %}
+        <p>{{msg}}</p>
+        {% endfor %}
+        
+        {% else %}
+        No message yet
+        {% endif %}
+
+
+
+
+      {% endblock %}
+</body>
+</html>

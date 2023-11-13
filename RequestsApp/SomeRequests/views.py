@@ -19,21 +19,7 @@ def view_requests(request: HttpRequest) -> HttpResponse:
 
 
 def create_request(request: HttpRequest) -> HttpResponse:
-    if request.method == 'POST':
-        user = User.objects.get(username='admin')
-        req = UserRequest()
-        req.title = request.POST.get('request_title', '')
-        req.description = request.POST.get('request_description', '')
-        req.user = user
-        req.save()
-
-        url = reverse('SomeRequests:requests')
-        return redirect(url)
-
-    return render(request, 'SomeRequests/create_request.html')
-
-
-def create_request2(request):
+    """Создание заявки"""
     if request.method == 'POST':
         request_data = RequestForm(request.POST)
         if request_data.is_valid():
@@ -50,10 +36,11 @@ def create_request2(request):
         'user': user
     }
 
-    return render(request, 'SomeRequests/create_request_2.html', context=context)
+    return render(request, 'SomeRequests/create_request.html', context=context)
 
 
 def add_message(request: HttpRequest) -> HttpResponse:
+    """Добавление сообщения в заявку"""
     if request.method == 'POST':
         message_data = MessageForm(request.POST)
         if message_data.is_valid():
@@ -72,14 +59,16 @@ def add_message(request: HttpRequest) -> HttpResponse:
 
 
 def get_request_data(request: HttpRequest) -> HttpResponse:
+    """Запрос на получение данных о заявке по ее ID"""
     return render(request, 'SomeRequests/get_request_data.html')
 
 
-def request_data(request):
+def request_data(request: HttpRequest) -> HttpResponse:
+    """Выдача информации о заявке"""
     request_id = request.GET.get('id')
     if request_id:
         request_data = get_object_or_404(UserRequest, pk=request_id)
-        messages = get_list_or_404(RequestMessage, user_request= request_id)
+        messages = RequestMessage.objects.filter(user_request=request_id)
         message_count = len(messages)
         context = {
             'request_data': request_data,
@@ -87,3 +76,21 @@ def request_data(request):
         }
         return render(request, 'SomeRequests/request_data.html', context=context)
     return HttpResponse("Nothing in input")
+
+
+def get_message_from_request(request: HttpRequest) -> HttpResponse:
+    """Запрос на получение сообщений из заявки по ее ID """
+    return render(request, 'SomeRequests/get_message_from_request.html')
+
+
+def request_messages(request: HttpRequest) -> HttpResponse:
+    """Выдача сообщений из заявки"""
+    request_id = request.GET.get('message-id')
+    print(request_id)
+    messages = RequestMessage.objects.filter(user_request_id=request_id)
+
+    context = {
+        'messages': messages
+    }
+    return render(request, 'SomeRequests/request_messages.html', context=context)
+

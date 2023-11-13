@@ -8,6 +8,7 @@
     <h1>Requests list: </h1>
     {% if request %}
     {% for request in requests %}
+        <p>Request ID: {{request.pk}}</p>
         <p>Request title: {{request.title}}</p>
         <p>Request description: {{request.description}}</p>
         <p>Request time: {{request.created_at}}</p>
