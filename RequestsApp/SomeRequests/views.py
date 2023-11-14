@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render, reverse, redirect, get_object_or_404, get_list_or_404
+from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.views import View
 
 from .models import UserRequest, RequestMessage
@@ -29,32 +29,14 @@ class RequestsView(View):
             return redirect(url)
 
 
-
-
-
-def create_request(request: HttpRequest) -> HttpResponse:
-    """Создание заявки"""
-    if request.method == 'POST':
-        request_data = RequestForm(request.POST)
-        if request_data.is_valid():
-            request_data.save()
-            url = reverse('SomeRequests:requests')
-            return redirect(url)
-
-    else:
-        request_data = RequestForm()
-
-    user = User.objects.all()
-    context = {
-        'request_data': request_data,
-        'user': user
-    }
-
-    return render(request, 'SomeRequests/create_request.html', context=context)
-
-
-
-
+class RequestDataView(View):
+    """Представление информации о заявке"""
+    def get(self, request: HttpRequest, pk: int) -> HttpResponse:
+        request_id = get_object_or_404(UserRequest, pk=pk)
+        context = {
+            'request_id': request_id,
+        }
+        return render(request, 'SomeRequests/request-details.html', context=context)
 
 
 def add_message(request: HttpRequest) -> HttpResponse:
@@ -112,3 +94,22 @@ def request_messages(request: HttpRequest) -> HttpResponse:
     }
     return render(request, 'SomeRequests/request_messages.html', context=context)
 
+# def create_request(request: HttpRequest) -> HttpResponse:
+#     """Создание заявки"""
+#     if request.method == 'POST':
+#         request_data = RequestForm(request.POST)
+#         if request_data.is_valid():
+#             request_data.save()
+#             url = reverse('SomeRequests:requests')
+#             return redirect(url)
+#
+#     else:
+#         request_data = RequestForm()
+#
+#     user = User.objects.all()
+#     context = {
+#         'request_data': request_data,
+#         'user': user
+#     }
+#
+#     return render(request, 'SomeRequests/create_request.html', context=context)

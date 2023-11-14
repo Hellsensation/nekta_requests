@@ -9,14 +9,19 @@
     <div>
         <form method="post">
             {% csrf_token %}
-            {{form}}
+            {{form.as_p}}
             <button type="submit">Submit</button>
+            <p>---------------------------------------------</p>
+            
+            
         </form>
     </div>
     {% if request %}
     {% for request in requests %}
         <p>Request ID: {{request.pk}}</p>
-        <p>Request title: {{request.title}}</p>
+        <p><a href="{% url 'SomeRequests:request_data_view' pk=request.pk %}"
+            >Request title: {{request.title}}</a></p>
+
         <p>Request description: {{request.description}}</p>
         <p>Request time: {{request.created_at}}</p>
         <p>Request author: {{request.user.username}}</p>

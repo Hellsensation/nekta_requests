@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>
-      {% block title %}
-        Deatils
-      {% endblock %}
-    </title>
-</head>
-<body>
-      {% block body %}
-        <h1>Детали заявки</h1>
-        <p>Номер заявки: {{request_data.pk}}</p>
-        <p>Заголовок: {{request_data.title}}</p>
-        <p>Описание: {{request_data.description}}</p>
+{% extends "SomeRequests/base.html" %}
 
+{% block title %}
+  Deatils
+{% endblock %}
 
-      {% endblock %}
-</body>
-</html>
+{% block body %}
+  <h1>Детали заявки</h1>
+  <p>Номер заявки: {{request_data.pk}}</p>
+  <p>Заголовок: {{request_data.title}}</p>
+  <p>Описание: {{request_data.description}}</p>
+{% endblock %}
+

@@ -1,0 +1,17 @@
+{% extends "SomeRequests/base.html" %}
+
+{% block title %}
+Request # {{ request_id.pk }}
+{% endblock %}
+
+
+
+{% block body %}
+<h1>Request name: <strong> {{ request_id.title }} </strong></h1>
+<div>Description: {{ request_id.description }} </div>
+<div>Created at: {{ request_id.created_at }} </div>
+
+<div>
+  <a href="{% url 'SomeRequests:requests'%}">Back to requests list</a>
+</div>
+{% endblock %}
