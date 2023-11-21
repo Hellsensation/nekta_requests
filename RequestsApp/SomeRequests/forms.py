@@ -12,3 +12,5 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = RequestMessage
         fields = 'text_message', 'user_request'
+
+

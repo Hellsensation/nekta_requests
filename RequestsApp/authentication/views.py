@@ -1,6 +1,16 @@
+from rest_framework import generics
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+
+
+
+
+
+
+
+
+
 
 
 # def login_view(request: HttpRequest):

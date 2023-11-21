@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'SomeRequests.apps.SomerequestsConfig',
     'authentication.apps.AuthenticationConfig',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
 
 ]
 
@@ -127,3 +130,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/admin/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
